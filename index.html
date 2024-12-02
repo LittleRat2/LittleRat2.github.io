@@ -5,21 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Little_Rat_2</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General reset and body styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      overflow: hidden; /* Prevent scrolling */
+    }
+    /* Video Background Styles */
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1; /* Ensure the video is behind other content */
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the video covers the screen without distortion */
+      pointer-events: none; /* Prevents video controls on mobile */
+    }
+    /* Content Section */
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding-top: 30vh; /* Center the content vertically */
+    }
+    /* Username Styling */
+    .username {
+      font-size: 3em;
+      font-weight: bold;
+      font-family: 'Courier New', Courier, monospace;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    /* Social Media Icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .social-icons a {
+      color: white;
+      font-size: 2em;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      color: #ff7f00;
+    }
+    .mute-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      transition: background 0.3s;
+    }
+    .mute-button:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  </style>
 </head>
 <body>
   <!-- Video Background -->
   <div class="video-container">
-    <video autoplay loop id="backgroundVideo">
+    <video autoplay loop muted playsinline id="backgroundVideo">
       <source src="assets/Riding%20waves.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
-
   <!-- Content Section -->
   <div class="content">
     <div class="username">Little_Rat_2</div>
-
     <!-- Social Media Links with Icons -->
     <div class="social-icons">
       <a href="https://steamcommunity.com/profiles/76561199083605754/" target="_blank" title="Steam">
@@ -33,19 +106,17 @@
       </a>
     </div>
   </div>
-
   <!-- Mute Button -->
   <button id="muteButton" class="mute-button">
     <i class="fas fa-volume-mute"></i>
   </button>
 
-  <!-- Add this before </body> -->
   <script>
     const video = document.getElementById('backgroundVideo');
     const muteButton = document.getElementById('muteButton');
     
     // Set initial mute state
-    video.muted = True;
+    video.muted = true;
     
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
