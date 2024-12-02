@@ -30,9 +30,11 @@
       align-items: center;
       justify-content: center;
       width: 100%;
+      padding: 0 20px;
     }
     #landing .username {
-      font-size: 4em;
+      font-size: 10vw; /* Responsive font size */
+      max-font-size: 4em;
       font-weight: bold;
       font-family: 'Courier New', Courier, monospace;
       text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
@@ -40,11 +42,75 @@
       text-align: center;
     }
     #landing .click-prompt {
-      font-size: 1.2em;
+      font-size: 3vw;
+      min-font-size: 1em;
       color: rgba(255, 255, 255, 0.7);
       text-align: center;
     }
-    /* Rest of the previous CSS remains the same */
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding-top: 30vh;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .username {
+      font-size: 3em;
+      font-weight: bold;
+      font-family: 'Courier New', Courier, monospace;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .social-icons a {
+      color: white;
+      font-size: 2em;
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      color: #ff7f00;
+    }
+    .mute-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      transition: background 0.3s, opacity 0.8s;
+      opacity: 0;
+    }
+    .mute-button:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -54,10 +120,38 @@
     <div class="click-prompt">Click anywhere to enter</div>
   </div>
 
-  <!-- Rest of the previous HTML remains the same -->
+  <!-- Video Background -->
+  <div class="video-container">
+    <video loop muted playsinline id="backgroundVideo">
+      <source src="assets/Riding%20waves.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content">
+    <div class="username">Little_Rat_2</div>
+    <!-- Social Media Links with Icons -->
+    <div class="social-icons">
+      <a href="https://steamcommunity.com/profiles/76561199083605754/" target="_blank" title="Steam">
+        <i class="fab fa-steam"></i>
+      </a>
+      <a href="https://discord.com/users/744920798443077644" target="_blank" title="Discord">
+        <i class="fab fa-discord"></i>
+      </a>
+      <a href="https://www.youtube.com/@Antorn42" target="_blank" title="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mute Button -->
+  <button id="muteButton" class="mute-button">
+    <i class="fas fa-volume-mute"></i>
+  </button>
 
   <script>
-    const body = document.documentElement; // Changed from body to documentElement
+    const body = document.documentElement;
     const landing = document.getElementById('landing');
     const videoContainer = document.querySelector('.video-container');
     const content = document.querySelector('.content');
@@ -66,7 +160,7 @@
 
     // Transition to video page and unmute
     landing.addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent event bubbling
+      event.stopPropagation();
 
       // Fade out black background
       body.style.opacity = '0';
@@ -77,15 +171,14 @@
         content.style.opacity = '1';
         muteButton.style.opacity = '1';
 
-        // Unmute the video
-        video.muted = false;
-        muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        // Do not autoplay video
+        video.pause();
 
         // Remove landing page and reset body
         landing.style.display = 'none';
         body.style.opacity = '1';
         body.style.backgroundColor = 'transparent';
-      }, 800); // Match the CSS transition time
+      }, 800);
     });
 
     // Mute button functionality
