@@ -174,7 +174,6 @@
         video.muted = false;
         video.play().catch(error => {
           console.log('Autoplay was prevented:', error);
-          // Optionally, you could show a user interaction prompt
         });
 
         // Remove landing page and reset body
@@ -188,8 +187,8 @@
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
       muteButton.innerHTML = video.muted ? 
-        '<i class="fas fa-volume-up"></i>' : 
-        '<i class="fas fa-volume-mute"></i>';
+        '<i class="fas fa-volume-mute"></i>' : 
+        '<i class="fas fa-volume-up"></i>';
     });
 
     // Ensure video can autoplay
