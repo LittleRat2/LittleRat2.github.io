@@ -45,13 +45,13 @@
     const muteButton = document.getElementById('muteButton');
     
     // Set initial mute state
-    video.muted = true;
+    video.muted = False;
     
     muteButton.addEventListener('click', () => {
-      video.muted = !video.muted;
+      video.muted = video.muted;
       muteButton.innerHTML = video.muted ? 
-        '<i class="fas fa-volume-mute"></i>' : 
-        '<i class="fas fa-volume-up"></i>';
+        '<i class="fas fa-volume-up"></i>' : 
+        '<i class="fas fa-volume-mute"></i>';
     });
   </script>
 </body>
