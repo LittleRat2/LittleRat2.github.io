@@ -29,21 +29,22 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      padding: 0 20px;
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     #landing .username {
-      font-size: clamp(2rem, 10vw, 4rem); /* Responsive and auto-sizing text */
+      font-size: clamp(2rem, 10vw, 4rem);
       font-weight: bold;
       font-family: 'Courier New', Courier, monospace;
       text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7);
       margin-bottom: 20px;
-      text-align: center;
     }
     #landing .click-prompt {
-      font-size: clamp(0.8rem, 3vw, 1.5rem); /* Responsive click prompt */
+      font-size: clamp(0.8rem, 3vw, 1.5rem);
       color: rgba(255, 255, 255, 0.7);
-      text-align: center;
     }
     .video-container {
       position: absolute;
@@ -72,7 +73,7 @@
       transition: opacity 0.8s ease-in-out;
     }
     .content .username {
-      font-size: clamp(2rem, 5vw, 3rem); /* Responsive main content username */
+      font-size: clamp(2rem, 5vw, 3rem);
       font-weight: bold;
       font-family: 'Courier New', Courier, monospace;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -120,7 +121,7 @@
 
   <!-- Video Background -->
   <div class="video-container">
-    <video loop muted playsinline id="backgroundVideo">
+    <video loop playsinline id="backgroundVideo">
       <source src="assets/Riding%20waves.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -171,7 +172,10 @@
 
         // Autoplay video with sound
         video.muted = false;
-        video.play();
+        video.play().catch(error => {
+          console.log('Autoplay was prevented:', error);
+          // Optionally, you could show a user interaction prompt
+        });
 
         // Remove landing page and reset body
         landing.style.display = 'none';
@@ -186,6 +190,11 @@
       muteButton.innerHTML = video.muted ? 
         '<i class="fas fa-volume-mute"></i>' : 
         '<i class="fas fa-volume-up"></i>';
+    });
+
+    // Ensure video can autoplay
+    document.addEventListener('DOMContentLoaded', () => {
+      video.muted = false;
     });
   </script>
 </body>
