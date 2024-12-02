@@ -146,7 +146,7 @@
 
   <!-- Mute Button -->
   <button id="muteButton" class="mute-button">
-    <i class="fas fa-volume-mute"></i>
+    <i class="fas fa-volume-up"></i>
   </button>
 
   <script>
@@ -188,8 +188,8 @@
     muteButton.addEventListener('click', () => {
       video.muted = !video.muted;
       muteButton.innerHTML = video.muted ? 
-        '<i class="fas fa-volume-mute"></i>' : 
-        '<i class="fas fa-volume-up"></i>';
+        '<i class="fas fa-volume-up"></i>' : 
+        '<i class="fas fa-volume-mute"></i>';
     });
 
     // Ensure video can autoplay
